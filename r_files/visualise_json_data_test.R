@@ -8,3 +8,9 @@ fileName <- "../data/anti-money-laundering-and-counter-terrorism-financing.json"
 ## Load json file into R
 data <- read_json(fileName)
 
+data %>% 
+  gather_array %>%
+  spread_values(
+    properties = jstring("properties")
+  )
+  
