@@ -32,7 +32,7 @@ ui <- fluidPage(
    #    )
    # )
    
-  plotOutput("network")
+  simpleNetworkOutput("network")
 )
 
 # Define server logic required to draw a histogram
@@ -47,13 +47,22 @@ server <- function(input, output) {
    #    hist(x, breaks = bins, col = 'darkgray', border = 'white')
    # })
    
-  output$network <- renderForceNetwork({
+  output$network <- renderSimpleNetwork({
     ## Create fake data
-    src = c("A", "A", "A", "A",
-            "B", "B",
-            "C", "C",
-            "D")
-    target <- c("B", "C", "D", "J", "E", "F", "G", "H", "I")
+    src = c("Entity is registered remittance affiliate",
+            "End of March after reporting period",
+            "Entity provides no other designated service",
+            "First business day of January after reporting period",
+            "today",
+            "Entity accepts transfer or remittance",
+            "Entity provides no other designated service",
+            "D10 after threshold transacion",
+            "D10 after International Fund Trasnfer Instruction")
+    
+    target <- c(rep("Within AML/CTF Compliange Report Lodgement Period", 6),
+                rep("Pay civil penalty", 3))
+    
+    ## Gather into data frame
     networkData <- data.frame(src, target)
     
     ## basic plot
